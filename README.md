@@ -1,9 +1,7 @@
 # Compton spectrometer GEANT4 simulation
 
-Danielle Norcini (danielle.norcini@yale.edu)
-'''
-September 2016
-'''
+Danielle Norcini (danielle.norcini@yale.edu), September 2016
+
 ## Overview
 This program models the gamma-ray energy deposition physics within the context of a Compton spectrometer set-up used to measure the energy non-linearity of scintillator material. Using GEANT-4, a particle physics simulation based on C++ and the ROOT framework, the geometry represented includes:
 
@@ -22,14 +20,14 @@ This package was created based from Example B4 in the GEANT-4 examples guide (ht
 The program is tested and supported on wright.physics.yale.edu. `Geant4.10`, configured with Qt viewer, is used and the source code can be found on wright via `/cmn/prospect/geant4.10.02.p01`.
  
 To install on wright, complete the following steps (this assumes a working GitHub account):
-'''
+```
 $ mkdir ~/ComptonSim
 $ git clone https://github.com/dnorcini/ComptonSim 
 $ cd ~
 $ mkdir ComptonSim-build
 $ cmake -DGeant4_DIR=/cmn/prospect/geant4.10.02.p01-build/lib64/Geant4-10.2.1~/ComptonSim
 $ make 
-
+```
 ## Run
 The Qt GUI can be entered with the command `./ComptonSim` in the build directory. Individual user commands can be entered interactively on the GUI command line. To run in batch mode for long-statistics runs, the basic command `./ComptonSim -m batch.mac` can be used. 
 
