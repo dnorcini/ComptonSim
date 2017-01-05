@@ -22,10 +22,12 @@ The program is tested and supported on wright.physics.yale.edu. `Geant4.10`, con
 To install on wright, complete the following steps (this assumes a working GitHub account):
 ```
 $ mkdir ~/ComptonSim
+$ cd ~/ComptonSim
 $ git clone https://github.com/dnorcini/ComptonSim 
 $ cd ~
 $ mkdir ComptonSim-build
-$ cmake -DGeant4_DIR=/cmn/prospect/geant4.10.02.p01-build/lib64/Geant4-10.2.1~/ComptonSim
+$ cd ComptonSim-build
+$ cmake -DGeant4_DIR=/cmn/prospect/geant4.10.02.p01-build/lib64/Geant4-10.2.1 ~/ComptonSim
 $ make 
 ```
 ## Run
