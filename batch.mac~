@@ -1,0 +1,12 @@
+# To be run preferably in batch, without graphics:
+# % ComptonSims -m batch.mac
+#
+#/run/numberOfWorkers 4
+/run/initialize
+#
+# Run for different energies
+#/gun/particle gamma
+#/gun/energy 1 MeV
+#
+/run/printProgress 100000
+/run/beamOn 20000000

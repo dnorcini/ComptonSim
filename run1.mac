@@ -1,0 +1,3 @@
+/run/initialize
+/tracking/verbose 10
+/run/beamOn 10
