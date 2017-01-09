@@ -22,7 +22,7 @@ The program is tested and supported on wright.physics.yale.edu. `Geant4.10`, con
 To install on wright, complete the following steps (this assumes a working GitHub account):
 ```
 $ cd ~
-$ git clone https://github.com/dnorcini/ComptonSim 
+$ git clone https://github.com/dnorcini/ComptonSim  //(or fork, or download zip)
 $ cd ~
 $ mkdir ComptonSim-build
 $ cd ComptonSim-build
@@ -37,4 +37,8 @@ The Qt GUI can be entered with the command `./ComptonSim` in the build directory
 ## Improvements
 - model aluminum struction and concrete to understand gamma-ray reflection rate
 - add real gamma source (geometry, spectrum, rate)
+- ...
+
+## Notes
+- any runtime macros should be added to source code in macros directory, and listed in CMakeLists.txt
 - ...
