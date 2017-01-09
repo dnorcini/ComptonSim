@@ -1,12 +1,27 @@
 #----------------------------------------------------------------------------
+# Compile command, from inside build directory:
+# cmake ../ComptonSim
+# make -j8 
+
+#----------------------------------------------------------------------------
 # Setup the project
 #
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(ComptonSim)
 
+add_compile_options(-std=c++11)
+
+#----------------------------------------------------------------------------
+#For Mac OS X Use @rpath on OS X
+if(APPLE)
+  if(POLICY CMP0042)
+      CMAKE_POLICY(SET CMP0042 NEW)
+   endif()
+endif()
+
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
-# You can set WITH_GEANT4_UIVIS to OFF via the command line or ccmake/cmake-gui
+# You can set WITH_GEANT4_UIVIS to OFF via the command line or cmake/cmake-gui
 # to build a batch mode only executable
 #
 option(WITH_GEANT4_UIVIS "Build ComptonSim with Geant4 UI and Vis drivers" ON)
@@ -15,6 +30,8 @@ if(WITH_GEANT4_UIVIS)
 else()
   find_package(Geant4 REQUIRED)
 endif()
+   include(${Geant4_USE_FILE})
+   Message("Geant4_USE_FILE = ${Geant4_USE_FILE}")
 
 #----------------------------------------------------------------------------
 # Setup Geant4 include directories and compile definitions
@@ -30,42 +47,40 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
+#-------------------------------
+# ROOT dependencies
+#-------------------------------
+
+######## locate ROOT install, headers, includes
+include(FindROOT.cmake)
+include_directories(${ROOT_INCLUDE_DIR})
+link_directories(${ROOT_LIBRARY_DIR})
+
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
 add_executable(ComptonSim ComptonSim.cc ${sources} ${headers})
 target_link_libraries(ComptonSim ${Geant4_LIBRARIES})
-
-#----------------------------------------------------------------------------
-# Copy all scripts to the build directory, i.e. the directory in which we
-# build Compton. This is so that we can run the executable directly because it
-# relies on these scripts being in the current working directory.
-#
-set(COMPTON_SCRIPTS
-  macros/icons.mac
-  macros/gui.mac
-  macros/init_vis.mac
-  macros/vis.mac
-  macros/batch.mac
-  macros/run1.mac
-  macros/angleLoop.mac
-  macros/angleSingle.mac
-  macros/collimator1Loop.mac
-  macros/collimator1Single.mac
-  macros/emitLoop.mac
-  macros/emitSingle.mac
-  macros/scorer.mac
-  )
-
-foreach(_script ${COMPTON_SCRIPTS})
-  configure_file(
-    ${PROJECT_SOURCE_DIR}/${_script}
-    ${PROJECT_BINARY_DIR}/${_script}
-    COPYONLY
-    )
-endforeach()
+ 
+#################
+# Move Macro
+#################
+#configure_file(
+#      ${PROJECT_SOURCE_DIR}/mac/vis.mac
+#      ${PROJECT_BINARY_DIR}/vis.mac
+#      COPYONLY
+#      )
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
 install(TARGETS ComptonSim DESTINATION bin)
+
+#################
+# Build settings
+#################
+
+#set(CMAKE_BUILD_TYPE release)
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+set(CMAKE_BUILD_TYPE debug)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3 -Wextra")
