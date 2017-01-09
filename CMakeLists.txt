@@ -42,15 +42,19 @@ target_link_libraries(ComptonSim ${Geant4_LIBRARIES})
 # relies on these scripts being in the current working directory.
 #
 set(COMPTON_SCRIPTS
-  icons.mac
-  gui.mac
-  run.png
-  init_vis.mac
-  vis.mac
-  batch.mac
-  run1.mac
-  angleLoop.mac
-  angleSingle.mac
+  macros/icons.mac
+  macros/gui.mac
+  macros/init_vis.mac
+  macros/vis.mac
+  macros/batch.mac
+  macros/run1.mac
+  macros/angleLoop.mac
+  macros/angleSingle.mac
+  macros/collimator1Loop.mac
+  macros/collimator1Single.mac
+  macros/emitLoop.mac
+  macros/emitSingle.mac
+  macros/scorer.mac
   )
 
 foreach(_script ${COMPTON_SCRIPTS})
