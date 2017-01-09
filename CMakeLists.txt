@@ -21,7 +21,7 @@ endif()
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
-# You can set WITH_GEANT4_UIVIS to OFF via the command line or cmake/cmake-gui
+# You can set WITH_GEANT4_UIVIS to OFF via the command line or ccmake/cmake-gui
 # to build a batch mode only executable
 #
 option(WITH_GEANT4_UIVIS "Build ComptonSim with Geant4 UI and Vis drivers" ON)
@@ -61,15 +61,29 @@ link_directories(${ROOT_LIBRARY_DIR})
 #
 add_executable(ComptonSim ComptonSim.cc ${sources} ${headers})
 target_link_libraries(ComptonSim ${Geant4_LIBRARIES})
- 
+
+##############
+# Output paths
+##############
+
+#set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
+#set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
+
+#################
+# Copy Macros
+#################
+
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/mac")
+file(COPY "mac" DESTINATION "${CMAKE_BINARY_DIR}")
+
 #################
 # Move Macro
 #################
-#configure_file(
-#      ${PROJECT_SOURCE_DIR}/mac/vis.mac
-#      ${PROJECT_BINARY_DIR}/vis.mac
-#      COPYONLY
-#      )
+configure_file(
+      ${PROJECT_SOURCE_DIR}/mac/vis.mac
+      ${PROJECT_BINARY_DIR}/vis.mac
+      COPYONLY
+      )
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
