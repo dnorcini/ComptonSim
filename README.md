@@ -34,6 +34,12 @@ The Qt GUI can be entered with the command `./ComptonSim` in the build directory
 
 .... add info about loops and geometry messengers
 
+## Physics lists
+- ...
+
+## Particle generators
+- ...
+
 ## Improvements
 - model aluminum struction and concrete to understand gamma-ray reflection rate
 - add real gamma source (geometry, spectrum, rate)
